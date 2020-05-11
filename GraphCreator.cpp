@@ -101,12 +101,15 @@ int main(){
     //cout << label3 << endl;
     //cout << (*weight) << endl;
     //vector<> ar = { 1, 2, 3, 4, 5 };  
-     if(SearchVectorExists(graph, label2) && SearchVectorExists(graph, label3)){
+    if(SearchVectorExists(graph, label2) && SearchVectorExists(graph, label3) && (*label3) != (*label2)){
       AddEdge(edgeList, SearchVector(graph, label2), SearchVector(graph, label3), weight);
       cout << "added edge" << endl;
     }
     else{
       cout << "invalid node input" << endl;
+      if((*label3) == (*label2)){
+	cout << "you cannot connect a vertex to itself" << endl;
+      }
     }
       }
           else if(strcmp(funct, "Remove Vertex") == 0){
