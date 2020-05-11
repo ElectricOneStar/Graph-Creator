@@ -101,7 +101,7 @@ int main(){
     //cout << label3 << endl;
     //cout << (*weight) << endl;
     //vector<> ar = { 1, 2, 3, 4, 5 };  
-    if(SearchVectorExists(graph, label2) && SearchVectorExists(graph, label3)){
+     if(SearchVectorExists(graph, label2) && SearchVectorExists(graph, label3)){
       AddEdge(edgeList, SearchVector(graph, label2), SearchVector(graph, label3), weight);
       cout << "added edge" << endl;
     }
@@ -114,20 +114,17 @@ int main(){
                cin.get(label4, 20);
     cin.ignore();
     cin.clear();
+    if(SearchVectorExists(graph, label4)){
+      cout << "vertex removed" << endl;
+    }
+    else{
+      cout << "vertex " << label4 << " does not exist" << endl;
+    }
     //  cout << label2 << endl;
     // cout << label3 << endl;
     //cout << (*weight) << endl;
       }
-          else if(strcmp(funct, "Remove Vertex") == 0){
-            cout << "Please eneter a label for the vertex you want to remove" << endl;
-               cin.get(label4, 20);
-    cin.ignore();
-    cin.clear();
-     cout << label4 << endl;
-     //    cout << label3 << endl;
-
-          }
-	  else if(strcmp(funct, "Print") == 0){
+  	  else if(strcmp(funct, "Print") == 0){
 	    Print(graph, edgeList);
 	  }
 	  else if(strcmp(funct, "Shortest Path") == 0){
@@ -142,8 +139,15 @@ int main(){
         cin.get(label6, 20);
     cin.ignore();
 
-        cout << label5 << endl;
-    cout << label6 << endl;
+    //     cout << label5 << endl;
+    //cout << label6 << endl;
+        if(SearchVectorExists(graph, label5) && SearchVectorExists(graph, label6)){
+  
+      cout << "removed edge" << endl;
+    }
+    else{
+      cout << "invalid node input" << endl;
+    }
 
      }
           else if(strcmp(funct, "Exit") == 0){
