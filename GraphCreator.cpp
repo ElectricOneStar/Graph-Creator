@@ -216,7 +216,9 @@ void Print(vector<node*>& graph, vector<edge*>& edgeList){
   vector<node*>::iterator z;
   vector<node*>::iterator p;
   vector<node*>::iterator j; //iterator for edge vector
-  cout << " ";
+  bool fal = new bool;
+  fal = false;
+  cout << "  ";
   for(j=graph.begin(); j!=graph.end(); j++){ //for entirety of connection list
     cout << (*(*j)).getlabel() << " ";
   }
@@ -225,21 +227,30 @@ void Print(vector<node*>& graph, vector<edge*>& edgeList){
   for(k=graph.begin(); k!=graph.end(); k++){ //for entirety of connection list
     cout << (*(*k)).getlabel() << " ";
     // cout << endl;
-    for(a=graph.begin(); a!=graph.end(); k++){
-    vector<node*> connection = (*(*a)).getv();
+    //  for(a=graph.begin(); a!=graph.end(); k++){
+  vector<node*> connection = (*(*k)).getv();
     //   for(k=graph.begin(); k!=graph.end(); k++)
-    for(p=connection.begin(); p!=connection.end(); k++){
-      for(z=graph.begin(); z!=graph.end(); k++){
-	if((*p) == (*z)){
-	  cout << "T";
+       for(a=graph.begin(); a!=graph.end(); a++){
+
+	 for(p=connection.begin(); p!=connection.end(); p++){
+	   // for(z=graph.begin(); z!=graph.end(); k++){
+	if((*p) == (*a)){
+	  fal = true;
+	    cout << "T";
 	}
-	else{
-	  cout << "F";
-	}
-	cout << " ";
-      }
-    }
+	
+	//  cout << "F";
+	//	}
+	//	cout << " ";
+	 }
+	 if(fal == false){
+	   cout << "F";
+	 }
+	 else{
+	   fal = false;
+	 }
+	 cout << " ";
+       }
     cout << endl;
-  }
   }
 }
