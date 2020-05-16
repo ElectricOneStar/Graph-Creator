@@ -40,6 +40,8 @@ void AddVertex(vector<node*>& graph, node* add);
 bool SearchVectorExists(vector<node*>& graph, char* name);
 node* SearchVector(vector<node*>& graph, char* name);
 void AddEdge(vector<edge*>& edgeList, node* n1, node* n2, int* weight);
+void RemoveVector(node* remove, vector<node*>& graph, vector<edge*>& edgeList);
+vector<node*> deleteEdge(vector<node*>& graph, vector<edge*>& edgecont);
 int main(){
        bool* exists = new bool;
        (*exists) = false;
@@ -118,6 +120,7 @@ int main(){
     cin.ignore();
     cin.clear();
     if(SearchVectorExists(graph, label4)){
+      RemoveVector(SearchVector(graph, label4),  graph, edgeList);
       cout << "vertex removed" << endl;
     }
     else{
@@ -145,7 +148,7 @@ int main(){
     //     cout << label5 << endl;
     //cout << label6 << endl;
         if(SearchVectorExists(graph, label5) && SearchVectorExists(graph, label6)){
-  
+	  deleteEdge(graph, edgeList);
       cout << "removed edge" << endl;
     }
     else{
@@ -256,4 +259,97 @@ void Print(vector<node*>& graph, vector<edge*>& edgeList){
        }
     cout << endl;
   }
+  // void RemoveVector(Node* remove, ){
+
+  //}
+}
+void RemoveVector(node* remove, vector<node*>& graph, vector<edge*>& edgeList){
+  // cout << (*remove).getlabel() << endl;
+  vector<edge*>::iterator a;
+  vector<node*>::iterator k;
+  vector<node*>::iterator p;
+  vector<node*>::iterator z;
+  // for(a=edgeList.begin(); a!=edgeList.end(); a++){
+  // cout << "h1" << endl;
+  for(a=edgeList.begin(); a!=edgeList.end(); a++) {
+    // cout << (*remove).getlabel() << endl;
+    // cout << (*(*(*a)).v1).getlabel() << endl;
+    //if((*(*a)).v1 == remove || (*(*a)).v2 == remove){
+    //if((*(*(*a)).v1) == (*remove) || (*(*(*a)).v2) == (*remove)){
+    //cout << "wowz" << endl;
+    
+    //if((*(*(*a)).v1).getlabel() != NULL){
+      //   if((*(*(*a)).v2).getlabel() != NULL){
+    if((*(*(*a)).v1).getlabel() != NULL && strcmp((*(*(*a)).v1).getlabel(), (*remove).getlabel()) == 0 || (*(*(*a)).v2).getlabel() != NULL && strcmp((*(*(*a)).v2).getlabel(), (*remove).getlabel()) == 0){
+      //  cout << "inside" << endl;
+    edgeList.erase(a);
+    break;
+    }
+    //}
+    // }
+    
+  }
+  // cout << "h2" << endl;
+    for(k=graph.begin(); k!=graph.end(); k++){ //for entirety of connection list
+      //    cout << (*(*k)).getlabel() << " ";
+    // cout << endl;
+    //  for(a=graph.begin(); a!=graph.end(); k++){
+  vector<node*> connection = (*(*k)).getv();
+  for(p=connection.begin(); p!=connection.end(); p++){
+    //  if((*p) == remove){
+    //  if((*(*p)) == (*remove)){
+    // if((*p) != NULL){
+    if((*p) != NULL && strcmp((*(*p)).getlabel(), (*remove).getlabel()) == 0){
+    connection.erase(p);
+    break;
+    }
+    }
+  //}
+    }
+    for(z=graph.begin(); z!=graph.end(); z++){
+      // if((*z) == remove){
+      //  if((*(*z)) == (*remove)){
+      //if((*z) != NULL){
+      if((*z) != NULL && strcmp((*(*z)).getlabel(), (*remove).getlabel()) == 0){
+      graph.erase(z);
+      break;
+      //}
+      }
+    }
+    //cout << "h3" << endl;
+}
+vector<node*> deleteEdge(vector<node*>& graph, vector<edge*>& edgecont) {
+  vector<edge*>::const_iterator k;
+  vector<node*>::const_iterator i;
+  vector<node*>::const_iterator j;
+  cout << "Please enter the first node" << endl;
+  char* firstnode = new char[80];
+  cin.getline(firstnode, 80);
+   cout << "Please enter the second node" << endl;
+  char* secondnode = new char[80];
+  cin.getline(secondnode, 80);
+  for(k=edgecont.begin(); k!=edgecont.end(); ++k) {
+    if((*k) -> v1 -> getlabel() != NULL) {
+      if(strcmp((*k) -> v1 -> getlabel(), firstnode) == 0 || strcmp((*k) -> v2 -> getlabel(), secondnode) == 0) {
+	edgecont.erase(k);
+	break;
+      }
+    }
+  }
+  cout<< "I" << endl;
+  for(i=graph.begin(); i!=graph.end(); ++i) {
+    if(strcmp((*i) -> getlabel(), firstnode) == 0) {
+      vector<node*> connect = (*i) -> getv();
+      cout << "a" << endl;
+	for(j=connect.begin(); j!=connect.end(); ++j) {
+	  cout << (*j) -> getlabel();
+	  if((*j) != NULL && strcmp((*j) -> getlabel(), secondnode) == 0) {
+	    connect.erase(j);
+	    break;
+	  }
+	}
+    }
+  }
+  return graph;
+
 }
