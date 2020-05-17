@@ -423,6 +423,8 @@ void deleteEdge(vector<node*>& graph , vector<edge*>& edgeList,vector<node*>& co
   int* counter = new int;
   int* pathSet = new int[100];
   int* pathWeight = new int;
+  int* shortest = new int;
+  (*shortest) = 100000;
   //(*pathWeight) = 0;
   (*counter) = 0;
   for(k=graph.begin(); k!=graph.end(); k++){ //for entirety of connection list
@@ -453,7 +455,13 @@ void deleteEdge(vector<node*>& graph , vector<edge*>& edgeList,vector<node*>& co
 	 cout << "there is no path between " << (*Vertex1).getlabel() << " and " << (*Vertex2).getlabel() << endl;
 }
        else{
-	 cout << "The shortest Path is " << counter << " units long" << endl;
+	 for(int i = 0; i < sizeof((*pathSet)); i++){
+	   cout << pathSet[i] << endl;
+	   if(pathSet[i] < (*shortest)){
+	     (*shortest) = pathSet[i];
+	   }
+	 }
+	 cout << "The shortest Path is " << (*shortest) << " units long" << endl;
        }
 }
 void iterate( vector<node*> connection, node* Vertex2, int* counter, int* pathSet, int* pathWeight, vector<edge*>& edgeList, node* previous, vector<node*> graph){
