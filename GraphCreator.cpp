@@ -494,7 +494,8 @@ void deleteEdge(vector<node*>& graph , vector<edge*>& edgeList,vector<node*>& co
 	 cout << "the path goes ";
 	 vector<node*> Npath = vector<node*>();
 	 Npath = (*d);
-	 for(c=path.begin(); c!=path.end(); c++){
+	 // for(c=path.begin(); c!=path.end(); c++){
+	   for(c=Npath.begin(); c!=Npath.end(); c++){
 	   cout << "to " << (*(*c)).getlabel() << " ";
 	 }
 	 cout << endl;
@@ -507,7 +508,8 @@ void deleteEdge(vector<node*>& graph , vector<edge*>& edgeList,vector<node*>& co
 void iterate( vector<node*> connection, node* Vertex2, int* counter, int*& pathSet, int*& pathWeight, vector<edge*>& edgeList, node* previous, vector<node*> graph, vector<node*>& path, vector<vector<node*>>& collection, node* Vertex1){
 vector<node*>::iterator p;
  vector<node*>::iterator z;
-//vector<node*>::iterator c;
+  vector<node*>::iterator c;
+ //vector<node*>::iterator c;
             for(p=connection.begin(); p!=connection.end(); p++){
 	   // cout << "h3" << endl;
 	   //    cout << (*(*k)).getlabel() << endl;
@@ -524,14 +526,16 @@ vector<node*>::iterator p;
 	(*counter)++;
 	path.push_back(Vertex2);
 	 vector<node*> pathCopy = vector<node*>();
-	 for(z=pathCopy.begin(); z!=pathCopy.end(); z++){
+	 for(z=path.begin(); z!=path.end(); z++){
 	   pathCopy.push_back(SearchVector(graph, (*(*z)).getlabel()));
 	 }
 	 collection.push_back(pathCopy); 
-	 /*
+	   for(c=pathCopy.begin(); c!=pathCopy.end(); c++){
+	   cout << "to " << (*(*c)).getlabel() << " ";
+	 }
 	 path.clear();
 	path.push_back(Vertex1);
-	 */
+	 
 //vector<node*> anotherpath = vector<node*>();
       }
       else{
