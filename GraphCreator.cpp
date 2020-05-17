@@ -51,7 +51,7 @@ void deleteEdge(vector<node*>& graph, vector<edge*>& edgeList, vector<node*>& co
 void ShortestPath(vector<node*>& graph , vector<edge*>& edgeList, node* Vertex1, node* Vertex2);
 void iterate( vector<node*> connection, node* Vertex2, int* counter,int* pathSet, int* pathWeight);
 int* getWeight(vector<edge*>& edgeList, node* Vertex1, node* Vertex2);
-void iterate( vector<node*> connection, node* Vertex2, int* counter, int* pathSet, int* pathWeight, vector<edge*>& edgeList, node* previous, vector<node*> graph);
+void iterate( vector<node*> connection, node* Vertex2, int* counter, int*& pathSet, int*& pathWeight, vector<edge*>& edgeList, node* previous, vector<node*> graph);
 int main(){
        bool* exists = new bool;
        (*exists) = false;
@@ -424,8 +424,9 @@ void deleteEdge(vector<node*>& graph , vector<edge*>& edgeList,vector<node*>& co
   int* pathSet = new int[100];
   int* pathWeight = new int;
   int* shortest = new int;
+  // vector<node*> path = vector<node*>();
   (*shortest) = 100000;
-  //(*pathWeight) = 0;
+  (*pathWeight) = 0;
   (*counter) = 0;
   for(k=graph.begin(); k!=graph.end(); k++){ //for entirety of connection list
     if((*k) != NULL && strcmp((*(*k)).getlabel(), (*Vertex1).getlabel()) == 0){
@@ -455,7 +456,11 @@ void deleteEdge(vector<node*>& graph , vector<edge*>& edgeList,vector<node*>& co
 	 cout << "there is no path between " << (*Vertex1).getlabel() << " and " << (*Vertex2).getlabel() << endl;
 }
        else{
-	 for(int i = 0; i < sizeof((*pathSet)); i++){
+	 //cout << sizeof((*pathSet)) << endl;
+	 // cout << (*counter) << endl;
+	 cout << "here" << endl;
+	 
+	 for(int i = 0; i < (*counter); i++){
 	   cout << pathSet[i] << endl;
 	   if(pathSet[i] < (*shortest)){
 	     (*shortest) = pathSet[i];
@@ -464,20 +469,21 @@ void deleteEdge(vector<node*>& graph , vector<edge*>& edgeList,vector<node*>& co
 	 cout << "The shortest Path is " << (*shortest) << " units long" << endl;
        }
 }
-void iterate( vector<node*> connection, node* Vertex2, int* counter, int* pathSet, int* pathWeight, vector<edge*>& edgeList, node* previous, vector<node*> graph){
+void iterate( vector<node*> connection, node* Vertex2, int* counter, int*& pathSet, int*& pathWeight, vector<edge*>& edgeList, node* previous, vector<node*> graph){
 vector<node*>::iterator p;
             for(p=connection.begin(); p!=connection.end(); p++){
 	   // cout << "h3" << endl;
 	   //    cout << (*(*k)).getlabel() << endl;
       if((*p) != NULL && strcmp((*(*p)).getlabel(), (*Vertex2).getlabel()) == 0){
 	cout << "path" << endl;
-	(*counter)++;
+	//	(*counter)++;
 	(*pathWeight) = (*pathWeight) + (*getWeight(edgeList,  previous, SearchVector(graph, (*(*p)).getlabel())));
 	int* newPath = new int;
 	(*newPath) = (*pathWeight);
 	cout << (*pathWeight) << endl;
 	(*pathWeight) = 0;
 	pathSet[(*counter)] = (*newPath);
+	(*counter)++;
       }
       else{
 	(*pathWeight) = (*pathWeight) + (*getWeight(edgeList,  previous, SearchVector(graph, (*(*p)).getlabel())));
