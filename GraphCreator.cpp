@@ -494,7 +494,7 @@ void deleteEdge(vector<node*>& graph , vector<edge*>& edgeList,vector<node*>& co
 	 cout << "the path goes ";
 	 vector<node*> Npath = vector<node*>();
 	 Npath = (*d);
-	 for(c=Npath.begin(); c!=Npath.end(); c++){
+	 for(c=path.begin(); c!=path.end(); c++){
 	   cout << "to " << (*(*c)).getlabel() << " ";
 	 }
 	 cout << endl;
@@ -528,9 +528,11 @@ vector<node*>::iterator p;
 	   pathCopy.push_back(SearchVector(graph, (*(*z)).getlabel()));
 	 }
 	 collection.push_back(pathCopy); 
-	path.clear();
+	 /*
+	 path.clear();
 	path.push_back(Vertex1);
-	//vector<node*> anotherpath = vector<node*>();
+	 */
+//vector<node*> anotherpath = vector<node*>();
       }
       else{
 	(*pathWeight) = (*pathWeight) + (*getWeight(edgeList,  previous, SearchVector(graph, (*(*p)).getlabel())));
