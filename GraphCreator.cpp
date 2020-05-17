@@ -464,7 +464,7 @@ vector<node*>::iterator p;
       if((*p) != NULL && strcmp((*(*p)).getlabel(), (*Vertex2).getlabel()) == 0){
 	cout << "path" << endl;
 	(*counter)++;
-	pathWeight =+ getWeight(edgeList,  previous, SearchVector(graph, (*(*p)).getlabel()));
+	(*pathWeight) = (*pathWeight) + (*getWeight(edgeList,  previous, SearchVector(graph, (*(*p)).getlabel())));
 	int* newPath = new int;
 	(*newPath) = (*pathWeight);
 	cout << (*pathWeight) << endl;
@@ -472,7 +472,8 @@ vector<node*>::iterator p;
 	pathSet[(*counter)] = (*newPath);
       }
       else{
-	pathWeight =+ getWeight(edgeList,  previous, SearchVector(graph, (*(*p)).getlabel()));
+	(*pathWeight) = (*pathWeight) + (*getWeight(edgeList,  previous, SearchVector(graph, (*(*p)).getlabel())));
+	cout << (*pathWeight) << endl;
 	vector<node*> connection3 = (*(*p)).getv();
 	iterate(connection3,  Vertex2, counter, pathSet, pathWeight, edgeList, SearchVector(graph, (*(*p)).getlabel()), graph);
       }
