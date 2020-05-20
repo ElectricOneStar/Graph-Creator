@@ -8,12 +8,35 @@ Source:https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 using namespace std;
 class node{ // node class
   char* label;
-  // vector<node*> connection;
- vector<node*> connection = vector<node*>();
+  //vector<int>& vec; 
+
+   vector<node*> connection;
+  //  vector<node*> connection = vector<node*>();
+
 public:
+  // MyClass(vector<node*> v) : connection(v) 
+  // { 
+  //} 
+  //  node(vector<int>& arr) 
+  //   : vec(arr) 
+  // { 
+  // } 
+  // vector<node*>& connection;
+  // vector<node*> connection = vector<node*>();
   void setlabel(char* l);
   char* getlabel();
   vector<node*> getv();
+  // void vErase(vector<node*>::const_iterator it);
+  /*
+  node(vector<node*>& arr) 
+        : connection(arr) 
+    { 
+    } 
+  */
+  //    void vErase(vector<node*>::const_iterator it) {
+  //  connection.erase(it);
+  // }
+
   void vPush(node* v) {//function is in class as otherwise doesnt recognize connect
     connection.push_back(v);
   }
@@ -21,9 +44,9 @@ public:
   //connection.erase(v);
   //}
 
-  void vErase(vector<node*>::const_iterator it) {
-    connection.erase(it);
-  }
+  // void vErase(iterator k) {
+  //connection.erase(k);
+  //}
 
 };
 void node::setlabel(char* l){
@@ -35,7 +58,9 @@ char* node::getlabel(){
 vector<node*> node::getv() {
   return connection;
 }
-
+//  void vErase(vector<node*>::const_iterator it) {
+//  connection.erase(it);
+// }
 
 struct edge{ // structure edge
   node* v1 = NULL;
@@ -71,7 +96,7 @@ int main(){ // main
        char* label6 = new char[20];
              char* label7 = new char[20];
        char* label8 = new char[20];
-
+       // vector<node*> test = vector<node*>();
        //int* weight = new int;
        bool exit;
   exit = false;
@@ -190,14 +215,71 @@ int main(){ // main
     connection = (*SearchVector(graph, label5)).getv();
     if(SearchVectorExists(graph, label5) && SearchVectorExists(graph, label6)){ // checks if the nodes exist in the graph
 	  deleteEdge(graph, edgeList, connection , SearchVector(graph, label5), SearchVector(graph, label6));
+    
+	  /*fixing the connection issue
+	   */
+	  //connection = (*SearchVector(graph, label5)).getv();
+	  /*
+	  vector<node*>::iterator k;
+	  cout << "here" << endl;
+	    for(k=connection.begin(); k!=connection.end(); k++){ // goes through connection
+      cout << "h3" << endl;
+       cout << (*(*k)).getlabel() << endl;
+      if((*k) != NULL && strcmp((*(*k)).getlabel(), (*SearchVector(graph, label6)).getlabel()) == 0){ 
+	cout << "h4" << endl;
+	
+	cout << (*(*k)).getlabel() << endl;
+	cout << "this" << endl;
+	connection.erase(k); // remove the connection because there is no more edge
+	cout << "that" << endl;
+	connection.erase(k);		
+	cout << "there" << endl;
+		break;
+	//return;
+	//(*Vertex1).getv().erase(k);
+	//(*Vertex1).vErase(k);
+	//	break; 
+      }
+	    }
+
+    
+	  */
+
+	  
 	  // vector<node*> connection = (*Vertex1).getv();
       cout << "removed edge" << endl;
     }
     else{
       cout << "invalid node input" << endl; // the nodes do not exist in the graph
     }
-
-     }
+    /*
+temp
+     */
+    /*
+    	  connection = (*SearchVector(graph, label5)).getv();
+	  vector<node*>::iterator k;
+	  cout << "here" << endl;
+	    for(k=connection.begin(); k!=connection.end(); k++){ // goes through connection
+      cout << "h3" << endl;
+       cout << (*(*k)).getlabel() << endl;
+      if((*k) != NULL && strcmp((*(*k)).getlabel(), (*SearchVector(graph, label6)).getlabel()) == 0){ 
+	cout << "h4" << endl;
+	
+	cout << (*(*k)).getlabel() << endl;
+	cout << "this" << endl;
+	connection.erase(k); // remove the connection because there is no more edge
+	cout << "that" << endl;
+	//connection.erase(k);		
+	cout << "there" << endl;
+		break;
+	//return;
+	//(*Vertex1).getv().erase(k);
+	//(*Vertex1).vErase(k);
+	//	break; 
+      }
+	    }
+    */    
+}
     else if(strcmp(funct, "Exit") == 0){ // terminates the program
       exit = true; // the user wants to exit
           }
@@ -281,6 +363,7 @@ void Print(vector<node*>& graph, vector<edge*>& edgeList){ // prints the conneci
        for(a=graph.begin(); a!=graph.end(); a++){
 
 	 for(p=connection.begin(); p!=connection.end(); p++){ // checks if connected
+	   // cout << (*(*p)).getlabel();
 	   // for(z=graph.begin(); z!=graph.end(); k++){
 	if((*p) == (*a)){
 	  fal = true; // connected
@@ -364,15 +447,17 @@ void deleteEdge(vector<node*>& graph , vector<edge*>& edgeList,vector<node*>& co
   vector<edge*>::iterator a;
     vector<node*>::iterator k;
     vector<node*>::iterator p; // edge and node iterator
-  cout << "start" << endl;
+      vector<node*>::iterator j;
+
+      // cout << "start" << endl;
   for(a=edgeList.begin(); a!=edgeList.end(); a++) { // goes through edge list
-    cout << "h1" << endl;
+    //cout << "h1" << endl;
     if((*(*(*a)).v1).getlabel() != NULL && strcmp((*(*(*a)).v1).getlabel(), (*Vertex1).getlabel()) == 0 && (*(*(*a)).v2).getlabel() != NULL && strcmp((*(*(*a)).v2).getlabel(), (*Vertex2).getlabel()) == 0){ // this is the edge
       //  cout << "inside" << endl;
-        cout << "h2" << endl;
-	cout << (*(*(*a)).v1).getlabel() << endl;
-	cout << (*(*(*a)).v2).getlabel() << endl;
-	cout << (*(*(*a)).weight) << endl;
+      // cout << "h2" << endl;
+      //	cout << (*(*(*a)).v1).getlabel() << endl;
+      //	cout << (*(*(*a)).v2).getlabel() << endl;
+      //	cout << (*(*(*a)).weight) << endl;
 	edgeList.erase(a);  // remove the edge
     break;
     }
@@ -386,25 +471,43 @@ void deleteEdge(vector<node*>& graph , vector<edge*>& edgeList,vector<node*>& co
   }
   //vector<node*> connection = (*Vertex1).getv();
    // for(k=(*Vertex1).getv().begin(); k!=(*Vertex1).getv().end(); k++){
-  for(k=connection.begin(); k!=connection.end(); k++){ // goes through connection
-      cout << "h3" << endl;
-      cout << (*(*k)).getlabel() << endl;
+   for(k=connection.begin(); k!=connection.end(); k++){ // goes through connection
+     //cout << "h3" << endl;
+     // cout << (*(*k)).getlabel() << endl;
       if((*k) != NULL && strcmp((*(*k)).getlabel(), (*Vertex2).getlabel()) == 0){ 
-	cout << "h4" << endl;
+	//	cout << "h4" << endl;
 	
-	cout << (*(*k)).getlabel() << endl;
-	cout << "this" << endl;
+	//cout << (*(*k)).getlabel() << endl;
+	//cout << "this" << endl;
+	//	vErase(k);
+	//vErase(k)
+	//vErase(k);
 	connection.erase(k); // remove the connection because there is no more edge
-	cout << "that" << endl;
-	//connection.erase(k);		
-	cout << "there" << endl;
-	//break;
-	return;
+	//cout << "that" << endl;
+	//connection.assign(k, connection.end()-1);
+	///connection.erase(k);		
+	//	connection.erase(Vertex2);
+	//connection.clear();
+	//cout << "there" << endl;
+	break;
+	//return;
 	//(*Vertex1).getv().erase(k);
 	//(*Vertex1).vErase(k);
 	//	break; 
     }
     }
+  
+  /*
+  vector<node*> connect = (*Vertex1).getv();
+      for(j = connect.begin(); j!=connect.end(); ++j)
+      {
+	if((*j) != NULL && strcmp((*j) -> getlabel(), (*Vertex2).getlabel()) == 0)
+  {
+	  connect.erase(j);
+	  break;
+	}
+      }
+  */
   // for(p=connection.begin(); p!=connection.end(); p++){
     //  if((*p) == remove){
     //  if((*(*p)) == (*remove)){
