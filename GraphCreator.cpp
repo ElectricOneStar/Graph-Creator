@@ -5,6 +5,7 @@ Source:https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 #include<iostream> // libraries
 #include<cstring>
 #include<vector>
+#include <cstdlib>
 using namespace std;
 class node{ // node class
   char* label;
